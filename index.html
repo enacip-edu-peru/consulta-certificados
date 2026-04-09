@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Verificación de Grados y Títulos | ENACIP</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">
+                <span class="red-text">ENACIP</span> | Escuela Nacional de Ciencias Políticas
+            </div>
+            <div class="nav-right">CERTIFICADOS OFICIALES</div>
+        </div>
+    </nav>
+
+    <main class="main-container">
+        <section id="search-section" class="search-box">
+            <h1>Verifica tu certificado</h1>
+            <p class="instruction">Plataforma de validación de autenticidad documental para egresados.</p>
+            
+            <div class="form-group">
+                <label>Apellidos Completos</label>
+                <input type="text" id="apellidos" placeholder="">
+            </div>
+
+            <div class="form-group">
+                <label>Número de Registro (N° REG)</label>
+                <input type="text" id="cert-num" placeholder="">
+            </div>
+
+            <button onclick="buscarCertificado()" class="btn-main">CONSULTAR REGISTRO</button>
+            
+            <div id="error-msg" class="error-banner" style="display: none;">
+                Error: El número de registro o los apellidos no coinciden con nuestra base de datos actual.
+            </div>
+        </section>
+
+        <section id="result-section" class="result-box" style="display: none;">
+            <div class="pdf-toolbar">
+                <span class="file-name">Certificado_Oficial_ENACIP.pdf</span>
+                <div class="actions">
+                    <button onclick="window.print()" class="btn-icon">Imprimir / Descargar</button>
+                    <button onclick="cerrarVista()" class="btn-icon close">Cerrar Sesión X</button>
+                </div>
+            </div>
+            
+            <div class="pdf-pages">
+                <div class="page">
+                    <img src="proyecto-enacip/cara1.jpg" alt="Anverso del Certificado">
+                </div>
+                <div class="page">
+                    <img src="proyecto-enacip/cara2.jpg" alt="Reverso del Certificado">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>© 2026 Escuela Nacional de Ciencias Políticas. Todos los derechos reservados.</p>
+        <p>Soporte Técnico desarrollado por ByTech Solutions</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
