@@ -1,39 +1,37 @@
 function buscarCertificado() {
-    // Obtenemos los valores y los pasamos a mayúsculas
     const apeInput = document.getElementById('apellidos').value.trim().toUpperCase();
     const numInput = document.getElementById('cert-num').value.trim().toUpperCase();
 
-    // Base de datos de certificados
     const certificados = [
         { 
             registro: "Y1NJSNEE", 
-            apellidoCompleto: "FUENTES RIVERA BOTONERO", 
-            imagen1: "cara1.jpg", 
-            imagen2: "cara2.jpg" 
+            apellido: "FUENTES RIVERA BOTONERO", 
+            imagenes: ["cara1.jpg", "cara2.jpg"] 
         },
         { 
             registro: "CDC0245 144", 
-            apellidoCompleto: "FUENTES RIVERA BOTONERO", 
-            imagen1: "excel.jpg", 
-            imagen2: "cara2.jpg" 
+            apellido: "FUENTES RIVERA BOTONERO", 
+            imagenes: ["excel.jpg"] // Solo mostrará esta imagen
         }
     ];
 
-    // Buscamos coincidencia exacta de registro y que el apellido ingresado esté contenido en el apellido completo
     const resultado = certificados.find(c => 
-        c.registro === numInput && c.apellidoCompleto.includes(apeInput)
+        c.registro === numInput && c.apellido.includes(apeInput)
     );
 
+    const resultSection = document.getElementById('result-section');
+    const errorMsg = document.getElementById('error-msg');
+
     if (resultado) {
-        // Mostramos las imágenes
-        document.querySelector('#result-section img:nth-child(1)').src = resultado.imagen1;
-        document.querySelector('#result-section img:nth-child(2)').src = resultado.imagen2;
+        // Limpiamos el contenedor y agregamos solo las imágenes del certificado encontrado
+        resultSection.innerHTML = resultado.imagenes.map(img => 
+            `<img src="${img}" style="width:100%; margin-bottom: 20px;">`
+        ).join('') + '<br><button onclick="location.reload()" style="padding:10px; cursor:pointer;">Nueva Consulta</button>';
 
         document.getElementById('search-section').style.display = 'none';
-        document.getElementById('result-section').style.display = 'block';
-        document.getElementById('error-msg').style.display = 'none';
+        resultSection.style.display = 'block';
+        errorMsg.style.display = 'none';
     } else {
-        // Si no coincide, mostramos el error
-        document.getElementById('error-msg').style.display = 'block';
+        errorMsg.style.display = 'block';
     }
 }
