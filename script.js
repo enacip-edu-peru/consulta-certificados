@@ -11,7 +11,7 @@ function buscarCertificado() {
         { 
             registro: "CDC0245 144", 
             apellido: "FUENTES RIVERA BOTONERO", 
-            imagenes: ["excel.jpg"] // Solo mostrará esta imagen
+            imagenes: ["excel.jpg"] 
         }
     ];
 
@@ -23,11 +23,24 @@ function buscarCertificado() {
     const errorMsg = document.getElementById('error-msg');
 
     if (resultado) {
-        // Limpiamos el contenedor y agregamos solo las imágenes del certificado encontrado
-        resultSection.innerHTML = resultado.imagenes.map(img => 
-            `<img src="${img}" style="width:100%; margin-bottom: 20px;">`
-        ).join('') + '<br><button onclick="location.reload()" style="padding:10px; cursor:pointer;">Nueva Consulta</button>';
+        // Generamos el contenido: Botones de acción + las imágenes
+        let contenido = `
+            <div style="margin-bottom: 20px; display: flex; gap: 10px; justify-content: center;">
+                <button onclick="window.print()" style="padding: 10px 20px; cursor: pointer; background: #2c3e50; color: white; border: none; border-radius: 5px;">
+                    Imprimir / Descargar PDF
+                </button>
+                <button onclick="location.reload()" style="padding: 10px 20px; cursor: pointer; background: #e74c3c; color: white; border: none; border-radius: 5px;">
+                    Nueva Consulta
+                </button>
+            </div>
+        `;
 
+        // Agregamos las imágenes
+        resultado.imagenes.forEach(img => {
+            contenido += `<img src="${img}" style="width:100%; max-width: 800px; margin-bottom: 20px; border: 1px solid #ddd;">`;
+        });
+
+        resultSection.innerHTML = contenido;
         document.getElementById('search-section').style.display = 'none';
         resultSection.style.display = 'block';
         errorMsg.style.display = 'none';
