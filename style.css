@@ -12,7 +12,7 @@ body {
     color: var(--gris-oscuro); 
 }
 
-/* Navegación */
+/* --- Estilos de Pantalla --- */
 .navbar { 
     background: var(--blanco); 
     padding: 20px 0; 
@@ -32,136 +32,78 @@ body {
 .logo { font-size: 1.2rem; font-weight: 500; }
 .red-text { color: var(--rojo-enacip); font-weight: 900; }
 
-/* Contenedor Principal */
 .main-container { padding: 60px 20px; min-height: 80vh; }
 
-/* Caja de Búsqueda */
 .search-box { 
-    background: var(--blanco); 
-    padding: 40px; 
-    border-radius: 4px; 
-    box-shadow: 0 8px 30px rgba(0,0,0,0.1); 
-    max-width: 450px; 
-    margin: 0 auto; 
-    text-align: center;
+    background: var(--blanco); padding: 40px; border-radius: 4px; 
+    box-shadow: 0 8px 30px rgba(0,0,0,0.1); max-width: 450px; margin: 0 auto; text-align: center;
 }
 
 .form-group { text-align: left; margin-bottom: 25px; }
-.form-group label { 
-    display: block; 
-    margin-bottom: 8px; 
-    font-size: 0.9rem; 
-    font-weight: bold; 
-    color: #555; 
-}
-
+.form-group label { display: block; margin-bottom: 8px; font-size: 0.9rem; font-weight: bold; color: #555; }
 .form-group input { 
-    width: 100%; 
-    padding: 12px; 
-    border: 1px solid #ccc; 
-    border-radius: 4px; 
-    font-size: 1rem; 
-    box-sizing: border-box; /* Evita que el input se salga del cuadro */
-    transition: border 0.3s;
+    width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; 
+    font-size: 1rem; box-sizing: border-box; transition: border 0.3s;
 }
-
 .form-group input:focus { border: 1px solid var(--rojo-enacip); outline: none; }
 
 .btn-main {
-    background: var(--rojo-enacip); 
-    color: var(--blanco); 
-    border: none; 
-    width: 100%; 
-    padding: 15px; 
-    border-radius: 4px; 
-    font-weight: bold; 
-    cursor: pointer; 
-    font-size: 1rem;
-    transition: background 0.3s;
+    background: var(--rojo-enacip); color: var(--blanco); border: none; width: 100%; 
+    padding: 15px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 1rem;
 }
 
-.btn-main:hover { background: #7a2b2b; }
-
-/* Visor de Resultados (Certificado) */
+/* Visor de Resultados */
 .result-box { 
-    background: #525659; 
-    max-width: 1000px; 
-    margin: 0 auto; 
-    border-radius: 8px; 
-    box-shadow: 0 10px 40px rgba(0,0,0,0.3); 
-    padding: 20px;
-    display: none; /* Se activa por JS */
+    background: #525659; max-width: 1000px; margin: 0 auto; border-radius: 8px; 
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3); padding: 20px;
 }
 
-/* Estilo de las imágenes del certificado en pantalla */
 #result-section img { 
-    display: block;
-    width: 100%; 
-    max-width: 850px; 
-    margin: 0 auto 20px auto; 
-    background: white; 
-    box-shadow: 0 0 20px rgba(0,0,0,0.5); 
+    width: 100%; max-width: 850px; display: block; margin: 0 auto 20px auto;
+    background: white; box-shadow: 0 0 20px rgba(0,0,0,0.5); 
 }
 
-/* Errores y Footer */
-.error-banner { 
-    background: #feebeb; 
-    color: #d93025; 
-    padding: 15px; 
-    margin-top: 20px; 
-    border-radius: 4px; 
-    border: 1px solid #fad2cf; 
-    display: none; /* Se activa por JS */
-}
-
-.footer { 
-    text-align: center; 
-    padding: 40px; 
-    background: #222; 
-    color: #999; 
-    font-size: 0.8rem; 
-    line-height: 1.5; 
-}
+.error-banner { background: #feebeb; color: #d93025; padding: 15px; margin-top: 20px; border-radius: 4px; border: 1px solid #fad2cf; }
+.footer { text-align: center; padding: 40px; background: #222; color: #999; font-size: 0.8rem; line-height: 1.5; }
 
 /* ==========================================
-   REGLAS PARA IMPRESIÓN (EL CORAZÓN DEL CAMBIO)
+   REGLAS DE IMPRESIÓN (SOLO EL CERTIFICADO)
    ========================================== */
 @media print {
-    /* Ocultamos absolutamente todo lo que no sea el certificado */
-    .navbar, .search-box, .btn-main, .footer, .error-banner, button, .pdf-toolbar {
+    /* Ocultar TODO excepto el contenedor de la imagen */
+    header, .navbar, .search-box, footer, .error-banner, button, .nav-content {
         display: none !important;
     }
 
     body {
         background: white !important;
         margin: 0 !important;
-        padding: 0 !important;
     }
 
+    /* Forzar que el contenedor del resultado sea el único visible */
     .main-container {
         padding: 0 !important;
         margin: 0 !important;
     }
 
-    /* Ajustamos el contenedor del resultado para que ocupe toda la página */
     #result-section {
         display: block !important;
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 100% !important;
-        padding: 0 !important;
-        margin: 0 !important;
     }
 
-    /* La imagen del certificado se ajusta al ancho del papel */
+    /* Ajustar imagen al tamaño del papel y quitar sombras */
     #result-section img {
         width: 100% !important;
         max-width: 100% !important;
-        box-shadow: none !important; /* Quitamos sombra para ahorrar tinta y que se vea limpio */
+        box-shadow: none !important;
         border: none !important;
         margin: 0 !important;
     }
 
-    /* Configuramos márgenes de página cero */
     @page {
-        margin: 0;
+        margin: 0; /* Elimina márgenes de impresora (quita cabeceras de URL y fecha) */
     }
 }
