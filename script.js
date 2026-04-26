@@ -1,18 +1,31 @@
 function buscarCertificado() {
-    const ape = document.getElementById('apellidos').value.trim().toUpperCase();
-    const num = document.getElementById('cert-num').value.trim().toUpperCase();
+    // Obtenemos los valores y los pasamos a mayúsculas
+    const apeInput = document.getElementById('apellidos').value.trim().toUpperCase();
+    const numInput = document.getElementById('cert-num').value.trim().toUpperCase();
 
-    // Base de datos actualizada
+    // Base de datos de certificados
     const certificados = [
-        { registro: "Y1NJSNEE", apellido: "FUENTES", imagen1: "cara1.jpg", imagen2: "cara2.jpg" },
-        { registro: "CDC0245 144", apellido: "FUENTES", imagen1: "excel.jpg", imagen2: "cara2.jpg" }
+        { 
+            registro: "Y1NJSNEE", 
+            apellidoCompleto: "FUENTES RIVERA BOTONERO", 
+            imagen1: "cara1.jpg", 
+            imagen2: "cara2.jpg" 
+        },
+        { 
+            registro: "CDC0245 144", 
+            apellidoCompleto: "FUENTES RIVERA BOTONERO", 
+            imagen1: "excel.jpg", 
+            imagen2: "cara2.jpg" 
+        }
     ];
 
-    // Buscar coincidencia
-    const resultado = certificados.find(c => c.registro === num && ape.includes(c.apellido));
+    // Buscamos coincidencia exacta de registro y que el apellido ingresado esté contenido en el apellido completo
+    const resultado = certificados.find(c => 
+        c.registro === numInput && c.apellidoCompleto.includes(apeInput)
+    );
 
     if (resultado) {
-        // Mostrar imágenes correspondientes
+        // Mostramos las imágenes
         document.querySelector('#result-section img:nth-child(1)').src = resultado.imagen1;
         document.querySelector('#result-section img:nth-child(2)').src = resultado.imagen2;
 
@@ -20,7 +33,7 @@ function buscarCertificado() {
         document.getElementById('result-section').style.display = 'block';
         document.getElementById('error-msg').style.display = 'none';
     } else {
-        // Mostrar error si no existe
+        // Si no coincide, mostramos el error
         document.getElementById('error-msg').style.display = 'block';
     }
 }
